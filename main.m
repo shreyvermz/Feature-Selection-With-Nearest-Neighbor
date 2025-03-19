@@ -4,11 +4,11 @@ function accuracy = leave_one_out_cross_validation(data, current_set, feature_to
    number_correctly_classified = 0;
    selected_features = [current_set, feature_to_add];
 
-   % Ensure features don't exceed valid range
+   % ensure features don't exceed valid range
    selected_features = selected_features(selected_features <= size(data, 2) -1);
 
    for i = 1: size(data,1)
-      
+      % zeroing out features
       object_to_classify = zeros(1, size(data,2)-1);
       object_to_classify(selected_features) = data(i, selected_features +1);
       label_object_to_classify = data(i, 1);
@@ -38,6 +38,7 @@ function accuracy = leave_one_out_cross_validation(data, current_set, feature_to
    end
 
    accuracy = number_correctly_classified / size(data,1);
+
 end
 
 
@@ -92,6 +93,7 @@ end
    end
 
    fprintf('\nFinished forward search!! The best feature subset is {%s}, which has an accuracy of %.1f%%\n', num2str(best_feature_set), best_overall_accuracy * 100);
+
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function feature_search_demo_backward(data)
@@ -166,6 +168,7 @@ function main_handler()
    else
        disp('Invalid choice. Please restart and enter 1 or 2.');
    end
+   
 end
 
 main_handler();
