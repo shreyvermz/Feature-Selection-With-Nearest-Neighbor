@@ -57,11 +57,17 @@ end
    
    fprintf('Beginning search...\n');
 
+   accuracy = leave_one_out_cross_validation(data, current_set_of_features, []);
+   fprintf(' --> Accuracy of empty set is %.1f%%\n', accuracy * 100);
+
    for i = 1 : size(data,2) - 1
 
       fprintf('\nOn the %dth level of the search tree\n', i);
       feature_to_add_at_this_level = [];
       best_so_far_accuracy = 0;
+
+      %accuracy = leave_one_out_cross_validation(data, current_set_of_features, []);
+      %fprintf(' --> Accuracy of empty set is %.1f%%\n', accuracy * 100);
 
       for k = 1 : size(data,2)-1
 
@@ -109,6 +115,8 @@ function feature_search_demo_backward(data)
    fprintf('Accuracy with all features: %.1f%%\n\n', all_features_accuracy * 100);
 
    fprintf('Beginning backward elimination search \n');
+   all_features_accuracy = leave_one_out_cross_validation(data, 1:size(data,2)-1, []);
+   fprintf('Accuracy with all features: %.1f%%\n\n', all_features_accuracy * 100);
    % keep going till only one feature left
    while length(current_set_of_features) > 1  
 
